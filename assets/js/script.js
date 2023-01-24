@@ -41,6 +41,7 @@ for (i = 0; i < allTables.length; i++) {
             <tbody></tbody>`
         }
 
+// adding initial rows
 const proBody = provisioning.querySelector('tbody'); 
 const regBody = regulating.querySelector('tbody'); 
 const culBody = cultural.querySelector('tbody'); 
@@ -66,6 +67,15 @@ regulatingArray.forEach((item) => {regBody.innerHTML += rowSetup(item)})
 culturalArray.forEach((item) => {culBody.innerHTML += rowSetup(item)})
 supportingArray.forEach((item) => {supBody.innerHTML += rowSetup(item)})
 
-
+// button functionality
+'tr button.new-row'
+main.addEventListener('click', (event) => {
+    let row = event.target.parentNode.parentNode.parentNode.remove(); 
+    if (event.target.getAttribute('class') === 'new-row') {
+    //    add row functionality here
+    } else if (event.target.getAttribute('class') === 'delete-row') {
+        row.remove(); 
+    }
+})
 
 
