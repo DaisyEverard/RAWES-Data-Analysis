@@ -52,8 +52,14 @@ const rowSetup = (title) => {return `<tr>
 <td class="zero"></td>
 <td class="plus"></td>
 <td class="plus-plus"></td>
-<td class="unknown"></td>
-</tr>`}
+<td class="unknown">
+  <div>
+    <button class="new-row">+</button>
+    <button class="delete-row">-</button>
+  </div>
+</td>
+</tr>
+`}
 
 provisioningArray.forEach((item) => {proBody.innerHTML += rowSetup(item)})
 regulatingArray.forEach((item) => {regBody.innerHTML += rowSetup(item)})

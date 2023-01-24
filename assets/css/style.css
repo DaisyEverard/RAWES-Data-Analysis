@@ -9,22 +9,41 @@ table {
     width: 90%; 
     text-align: center;
     margin-bottom: 20px ; 
-}; 
+}
+tr div {
+    /* position: absolute; */
+    float: right;
+    margin-right: -50px; 
+    width: 50px;
+    height: 25px; 
+    height: 100%; 
+}
+button {
+    /* height: 200%; 
+    position: relative;
+    top: 0; 
+    right: -100%;  */
+   border-radius: 50%;
+   border: none; 
+   width: 45%; 
 
-tbody th{
-    width: 40%; 
-    font-weight: bold;
-}; 
-
-tbody td {
-    width: 7.5%; 
-}; 
-
-/* table background colours */
-p {
-  /* broken line??? */
+}
+.new-row {
+    background-color: green;
+}
+.delete-row {
+    background-color: red;
 }
 
+tbody th{
+    width: 30%; 
+    font-weight: bold;
+}
+tbody td {
+    width: 7.5%; 
+}
+
+/* table background colours */
 thead {
     background-color: black;
     color: white;
