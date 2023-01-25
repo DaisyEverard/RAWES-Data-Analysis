@@ -8,22 +8,69 @@
     <link rel="stylesheet" href="./assets/css/style.css">
 </head>
 <body>
-    <header>RAWES Analysis</header>
+    <header>
+        <h1>RAWES Analysis</h1>
+        <nav>
+            <button class='nav-link' id="info-link">Info</button>
+            <button class='nav-link' id="main-link">Enter Data</button>
+        </nav>
+    </header>
     <main>
-    <section id="info-tab"></section>
-    <section id="main-tab">
-        <h2>Provisioning Services</h2>
-        <table id="provisioning-table"></table>
+    <section id="info-tab" class="tab">
+        <h1>How It Works</h1>
+        <p>What the symbols mean, and their percieved value in semi-statistical analysis</p>
+        <ul>
+            <li><h4>++ Significant positive contribution</h4>
+                <p>value: 1</p>
+                <p>Significant service provided by the wetland
+                    and a key element of its ecological character.</p>
+                <p>Large number of beneficiaries (relative to
+                    wetland context)</p>
+            </li>
+            <li><h4>+  Positive contribution</h4>
+                <p>value: 0.5</p>
+                <p>One of many services provided by the wetland
+                    and an element of its ecological character</p>
+                <p>• Limited number of beneficiaries (relative to
+                    wetland context)</p>
+            </li>
+            <li><h4>0  Negligible contribution</h4>
+                <p>value: 0</p>
+                <p>No obvious beneficiaries or benefits</p>
+                <p> Not an important known part of the wetland’s
+                    ecological character</p>
+            </li>
+            <li><h4>-  Negative contribution</h4>
+                <p>value: -0.5</p>
+                <p>Limited number of dis-beneficiaries</p>
+            </li>
+            <li><h4>-- Significant negative contribution</h4>
+                <p>value: -1</p>
+                <p>Large number of dis-beneficiaries</p>
+            </li>
+            <li><h4>?  Gaps in evidence</h4>
+                <p>Value: Not included</p>
+                <p>Further evidence needs to be obtained</p>
+            </li>
 
-        <h2>Regulating Services</h2>
-        <table id="regulating-table"></table>
+        </ul>
+    </section>
 
-        <h2>Cultural Services</h2>
-        <table id="cultural-table"></table>
-
-        <h2>Supporting Services</h2>
-        <table id="supporting-table">
-        </table>
+    <section id="main-tab" class="tab">
+        <form id="rawes-data">
+            <h2>Provisioning Services</h2>
+            <table id="provisioning-table"></table>
+    
+            <h2>Regulating Services</h2>
+            <table id="regulating-table"></table>
+    
+            <h2>Cultural Services</h2>
+            <table id="cultural-table"></table>
+    
+            <h2>Supporting Services</h2>
+            <table id="supporting-table">
+            </table>
+        </form>
     </section>
     </main>
     <footer>

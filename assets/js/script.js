@@ -1,4 +1,30 @@
-const main = document.querySelector('#main-tab')
+// tab constants
+const infoTab = document.querySelector('#info-tab')
+const mainTab = document.querySelector('#main-tab')
+const infoLink = document.querySelector('#info-link')
+const mainLink = document.querySelector('#main-link')
+const allTabs = document.querySelectorAll('.tab'); 
+const navbar = document.querySelector('nav')
+
+allTabs.forEach((item) => {item.setAttribute('class', 'hide');})
+mainTab.removeAttribute('class', 'hide');
+
+// consolidate into one with navbar??
+infoLink.addEventListener('click', () => {
+  allTabs.forEach(item => {
+    item.setAttribute('class', 'hide'); 
+  })
+  infoTab.removeAttribute('class', 'hide'); 
+}); 
+
+mainLink.addEventListener('click', () => {
+  allTabs.forEach(item => {
+    item.setAttribute('class', 'hide'); 
+  })
+  mainTab.removeAttribute('class', 'hide'); 
+}); 
+
+// MAIN-TAB
 const provisioning = document.querySelector('#provisioning-table')
 const regulating = document.querySelector('#regulating-table')
 const cultural = document.querySelector('#cultural-table')
@@ -52,19 +78,19 @@ const rowSetup = (title) => {
   <textarea>${title}</textarea>
 </th>
 <td class="minus-minus">
-  <input type='radio' value='-1' name=${className}>
+  <input type='radio' value=-1 name='${className}'>
 </td>
 <td class="minus">
-  <input type='radio' value='-0.5' name=${className}>
+  <input type='radio' value=-0.5 name='${className}'>
 </td>
 <td class="zero">
-  <input type='radio' value='0' name=${className}>
+  <input type='radio' value=0 name='${className}'>
 </td>
 <td class="plus">
-  <input type='radio' value='0.5' name=${className}>
+  <input type='radio' value=0.5 name='${className}'>
 </td>
 <td class="plus-plus">
-  <input type='radio' value='1' name=${className}> 
+  <input type='radio' value=1 name='${className}'> 
   <div>
     <button class="new-row">+</button>
     <button class="delete-row">-</button>
@@ -82,7 +108,7 @@ supportingArray.forEach((item) => {supBody.innerHTML += rowSetup(item)})
 
 // button functionality
 'tr button.new-row'
-main.addEventListener('click', (event) => {
+mainTab.addEventListener('click', (event) => {
     let row = event.target.parentNode.parentNode.parentNode; 
     if (event.target.getAttribute('class') === 'new-row') {
     //    add row functionality here
