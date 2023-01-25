@@ -107,13 +107,47 @@ culturalArray.forEach((item) => {culBody.innerHTML += rowSetup(item)})
 supportingArray.forEach((item) => {supBody.innerHTML += rowSetup(item)})
 
 // button functionality
-'tr button.new-row'
 mainTab.addEventListener('click', (event) => {
+  event.preventDefault()
     let row = event.target.parentNode.parentNode.parentNode; 
     if (event.target.getAttribute('class') === 'new-row') {
-    //    add row functionality here
+      let newRowContent = document.createElement('tr');
+      newRowContent.innerHTML = `<th>
+      <textarea></textarea>
+    </th>
+    <td class="minus-minus">
+      <input type='radio' value=-1 name=''>
+    </td>
+    <td class="minus">
+      <input type='radio' value=-0.5 name=''>
+    </td>
+    <td class="zero">
+      <input type='radio' value=0 name=''>
+    </td>
+    <td class="plus">
+      <input type='radio' value=0.5 name=''>
+    </td>
+    <td class="plus-plus">
+      <input type='radio' value=1 name=''> 
+      <div>
+        <button class="new-row">+</button>
+        <button class="delete-row">-</button>
+      </div>
+    </td>`
+
+    // set textarea service to name attribute
+         let newRow  = row.parentNode.insertBefore(newRowContent, row);
+         newRow.addEventListener('keyup', () => {
+             let text = newRow.querySelector('textarea')
+             let newName = text.value.replace(/\W/g, '-').toLowerCase();
+             let radioArray = newRow.querySelectorAll('input'); 
+             radioArray.forEach(item => {
+               item.setAttribute('name', newName);
+               console.log(item.getAttribute('name')); 
+             }) 
+         })
+         console.log(newRow.querySelector('textarea').value)
     } else if (event.target.getAttribute('class') === 'delete-row') {
-      console.log(event.target.getAttribute('class'))
         row.remove(); 
     } else {
       return
@@ -121,3 +155,5 @@ mainTab.addEventListener('click', (event) => {
 })
 
 
+const textArea = document.querySelectorAll('textarea')
+console.log(textArea)
