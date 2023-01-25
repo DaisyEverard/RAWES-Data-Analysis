@@ -11,71 +11,74 @@ table {
     margin-bottom: 20px ; 
 }
 tr div {
-    /* position: absolute; */
     float: right;
     margin-right: -50px; 
     width: 50px;
     height: 25px; 
     height: 100%; 
 }
-button {
-    /* height: 200%; 
-    position: relative;
-    top: 0; 
-    right: -100%;  */
-   border-radius: 50%;
-   border: none; 
-   width: 45%; 
-
-}
-.new-row {
-    background-color: green;
-}
-.delete-row {
-    background-color: red;
-}
-
 tbody th{
     width: 30%; 
     font-weight: bold;
 }
 tbody td {
-    width: 7.5%; 
+    width: 12%; 
 }
 
+/* title textareas boxes */
+th textarea {
+    width: 100%; 
+    border: none;
+    background: none;
+    font-weight: bold;
+}
 /* table background colours */
 thead {
     background-color: black;
-    color: white;
+    color: white; 
 }
+/* provisioning table */
 #provisioning-table tbody tr:nth-child(even) {
     background-color: rgb(42 88 42);
-    color: white;
 }
 #provisioning-table tbody tr:nth-child(odd) {
     background-color: #a6d0a6;
 }
 
+/* regulating table */
 #regulating-table tbody tr:nth-child(even) {
     background-color: #18188f;
-    color: white
 }
 #regulating-table tbody tr:nth-child(odd) {
     background-color: lightblue;
 }
 
+/* cultural table */
 #cultural-table tbody tr:nth-child(even) {
     background-color: rgb(121, 121, 19);
-    color: white; 
 }
 #cultural-table tbody tr:nth-child(odd) {
     background-color: rgb(255, 255, 195);
 }
 
+/* supporting table */
 #supporting-table tbody tr:nth-child(even) {
     background-color: rgb(105 12 12);
-    color:white; 
 }
 #supporting-table tbody tr:nth-child(odd) {
     background-color: rgb(226, 181, 188);
 }
+
+/* button styling */
+button {
+    border-radius: 50%;
+    border: none; 
+    width: 45%; 
+ 
+ }
+ .new-row {
+     background-color: green;
+ }
+ .delete-row {
+     background-color: red;
+ }

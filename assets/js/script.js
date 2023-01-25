@@ -35,7 +35,6 @@ for (i = 0; i < allTables.length; i++) {
                     <th>0</th>
                     <th>+</th>
                     <th>++</th>
-                    <th>?</th>
                 </tr>
             </thead>
             <tbody></tbody>`
@@ -46,14 +45,26 @@ const proBody = provisioning.querySelector('tbody');
 const regBody = regulating.querySelector('tbody'); 
 const culBody = cultural.querySelector('tbody'); 
 const supBody = supporting.querySelector('tbody'); 
-const rowSetup = (title) => {return `<tr>
-<th>${title}</th>
-<td class="minus-minus"></td>
-<td class="minus"></td>
-<td class="zero"></td>
-<td class="plus"></td>
-<td class="plus-plus"></td>
-<td class="unknown">
+const rowSetup = (title) => {
+  let className = title.replace(/\W/g, '-').toLowerCase(); 
+  return `<tr>
+<th>
+  <textarea>${title}</textarea>
+</th>
+<td class="minus-minus">
+  <input type='radio' value='-1' name=${className}>
+</td>
+<td class="minus">
+  <input type='radio' value='-0.5' name=${className}>
+</td>
+<td class="zero">
+  <input type='radio' value='0' name=${className}>
+</td>
+<td class="plus">
+  <input type='radio' value='0.5' name=${className}>
+</td>
+<td class="plus-plus">
+  <input type='radio' value='1' name=${className}> 
   <div>
     <button class="new-row">+</button>
     <button class="delete-row">-</button>
@@ -62,7 +73,9 @@ const rowSetup = (title) => {return `<tr>
 </tr>
 `}
 
-provisioningArray.forEach((item) => {proBody.innerHTML += rowSetup(item)})
+provisioningArray.forEach((item) => {
+  proBody.innerHTML += rowSetup(item);
+})
 regulatingArray.forEach((item) => {regBody.innerHTML += rowSetup(item)})
 culturalArray.forEach((item) => {culBody.innerHTML += rowSetup(item)})
 supportingArray.forEach((item) => {supBody.innerHTML += rowSetup(item)})
@@ -70,11 +83,14 @@ supportingArray.forEach((item) => {supBody.innerHTML += rowSetup(item)})
 // button functionality
 'tr button.new-row'
 main.addEventListener('click', (event) => {
-    let row = event.target.parentNode.parentNode.parentNode.remove(); 
+    let row = event.target.parentNode.parentNode.parentNode; 
     if (event.target.getAttribute('class') === 'new-row') {
     //    add row functionality here
     } else if (event.target.getAttribute('class') === 'delete-row') {
+      console.log(event.target.getAttribute('class'))
         row.remove(); 
+    } else {
+      return
     }
 })
 
