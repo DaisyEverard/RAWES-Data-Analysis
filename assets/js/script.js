@@ -9,20 +9,19 @@ const navbar = document.querySelector('nav')
 allTabs.forEach((item) => {item.setAttribute('class', 'hide');})
 mainTab.removeAttribute('class', 'hide');
 
-// consolidate into one with navbar??
-infoLink.addEventListener('click', () => {
+// tab switching functionality
+const changeTabFunc = (tabToOpen) => {
   allTabs.forEach(item => {
-    item.setAttribute('class', 'hide'); 
+    item.setAttribute('class', 'hide');
   })
-  infoTab.removeAttribute('class', 'hide'); 
-}); 
+  tabToOpen.removeAttribute('class', 'hide')
+}
 
-mainLink.addEventListener('click', () => {
-  allTabs.forEach(item => {
-    item.setAttribute('class', 'hide'); 
-  })
-  mainTab.removeAttribute('class', 'hide'); 
-}); 
+navbar.addEventListener('click', (event) => {
+  let tabName = event.target.getAttribute('data-tab');
+  let tabToOpen = document.getElementById(tabName); 
+  changeTabFunc(tabToOpen); 
+})
 
 // MAIN-TAB
 const provisioning = document.querySelector('#provisioning-table')
@@ -31,6 +30,7 @@ const cultural = document.querySelector('#cultural-table')
 const supporting = document.querySelector('#supporting-table')
 const allTables = document.querySelectorAll('table')
 
+// inital row headings (services)
 provisioningArray = ['Provision of fresh water', 'Provision of food',
 'Provision of fibre', 'Provision of fuel', 'Provision of genetic resources',
 'Provision of natural medicines and pharmaceuticals', 'Provision of ornamental resources',
@@ -66,31 +66,31 @@ for (i = 0; i < allTables.length; i++) {
             <tbody></tbody>`
         }
 
-// adding initial rows
+// function to add rows
 const proBody = provisioning.querySelector('tbody'); 
 const regBody = regulating.querySelector('tbody'); 
 const culBody = cultural.querySelector('tbody'); 
 const supBody = supporting.querySelector('tbody'); 
-const rowSetup = (title) => {
+const rowSetup = (title, table) => {
   let className = title.replace(/\W/g, '-').toLowerCase(); 
   return `<tr>
 <th>
   <textarea>${title}</textarea>
 </th>
 <td class="minus-minus">
-  <input type='radio' value=-1 name='${className}'>
+  <input type='radio' value=-1 data-name='${className}' data-table='${table}'>
 </td>
 <td class="minus">
-  <input type='radio' value=-0.5 name='${className}'>
+  <input type='radio' value=-0.5 data-name='${className}' data-table='${table}'>
 </td>
 <td class="zero">
-  <input type='radio' value=0 name='${className}'>
+  <input type='radio' value=0 data-name='${className}' data-table='${table}'>
 </td>
 <td class="plus">
-  <input type='radio' value=0.5 name='${className}'>
+  <input type='radio' value=0.5 data-name='${className}' data-table='${table}'>
 </td>
 <td class="plus-plus">
-  <input type='radio' value=1 name='${className}'> 
+  <input type='radio' value=1 data-name='${className}' data-table='${table}'> 
   <div>
     <button class="new-row">+</button>
     <button class="delete-row">-</button>
@@ -99,36 +99,37 @@ const rowSetup = (title) => {
 </tr>
 `}
 
-provisioningArray.forEach((item) => {
-  proBody.innerHTML += rowSetup(item);
-})
-regulatingArray.forEach((item) => {regBody.innerHTML += rowSetup(item)})
-culturalArray.forEach((item) => {culBody.innerHTML += rowSetup(item)})
-supportingArray.forEach((item) => {supBody.innerHTML += rowSetup(item)})
+// add initial rows
+provisioningArray.forEach((item) => {proBody.innerHTML += rowSetup(item, 'provisioning');})
+regulatingArray.forEach((item) => {regBody.innerHTML += rowSetup(item, 'regulating')})
+culturalArray.forEach((item) => {culBody.innerHTML += rowSetup(item, 'cultural')})
+supportingArray.forEach((item) => {supBody.innerHTML += rowSetup(item, 'supporting')})
 
 // button functionality
 mainTab.addEventListener('click', (event) => {
-  event.preventDefault()
-    let row = event.target.parentNode.parentNode.parentNode; 
+    let row = event.target.parentNode.parentNode.parentNode;
+    let table = row.parentNode.parentNode.getAttribute('data-table'); 
+    console.log(table); 
     if (event.target.getAttribute('class') === 'new-row') {
+      event.preventDefault(); 
       let newRowContent = document.createElement('tr');
       newRowContent.innerHTML = `<th>
       <textarea></textarea>
     </th>
     <td class="minus-minus">
-      <input type='radio' value=-1 name=''>
+      <input type='radio' value=-1 data-name='' data-table='${table}'>
     </td>
     <td class="minus">
-      <input type='radio' value=-0.5 name=''>
+      <input type='radio' value=-0.5 data-name='' data-table='${table}'>
     </td>
     <td class="zero">
-      <input type='radio' value=0 name=''>
+      <input type='radio' value=0 data-name='' data-table='${table}'>
     </td>
     <td class="plus">
-      <input type='radio' value=0.5 name=''>
+      <input type='radio' value=0.5 data-name='' data-table='${table}'>
     </td>
     <td class="plus-plus">
-      <input type='radio' value=1 name=''> 
+      <input type='radio' value=1 data-name='' data-table='${table}'> 
       <div>
         <button class="new-row">+</button>
         <button class="delete-row">-</button>
@@ -136,24 +137,35 @@ mainTab.addEventListener('click', (event) => {
     </td>`
 
     // set textarea service to name attribute
-         let newRow  = row.parentNode.insertBefore(newRowContent, row);
-         newRow.addEventListener('keyup', () => {
-             let text = newRow.querySelector('textarea')
-             let newName = text.value.replace(/\W/g, '-').toLowerCase();
-             let radioArray = newRow.querySelectorAll('input'); 
-             radioArray.forEach(item => {
-               item.setAttribute('name', newName);
-               console.log(item.getAttribute('name')); 
-             }) 
-         })
-         console.log(newRow.querySelector('textarea').value)
-    } else if (event.target.getAttribute('class') === 'delete-row') {
-        row.remove(); 
-    } else {
-      return
-    }
+    let newRow  = row.parentNode.insertBefore(newRowContent, row);
+    newRow.addEventListener('keyup', () => {
+        let text = newRow.querySelector('textarea')
+        let newName = text.value.replace(/\W/g, '-').toLowerCase();
+        let radioArray = newRow.querySelectorAll('input'); 
+        radioArray.forEach(item => {
+          item.setAttribute('data-name', newName);
+        }) 
+    })
+    console.log(newRow.querySelector('textarea').value); 
+  } else if (event.target.getAttribute('class') === 'delete-row') {
+    row.remove(); 
+} else {
+  return; 
+}
 })
 
+// on submit (data processing)
+let submitBtn = $('#submit-button');
 
-const textArea = document.querySelectorAll('textarea')
-console.log(textArea)
+submitBtn.on('click', (event) => {
+  event.preventDefault(); 
+  let checkedBoxes = $('input:checked', '#rawes-data');
+  checkedBoxes = checkedBoxes.toArray();
+  console.log(checkedBoxes);
+  checkedBoxes.forEach(box => {
+    console.log(box.getAttribute('data-name'))
+    console.log(box.getAttribute('data-table'))
+    console.log(box['value'])
+  })
+})
+

@@ -11,11 +11,13 @@
     <header>
         <h1>RAWES Analysis</h1>
         <nav>
-            <button class='nav-link' id="info-link">Info</button>
-            <button class='nav-link' id="main-link">Enter Data</button>
+            <button class='nav-link' id="info-link" data-tab="info-tab">Info</button>
+            <button class='nav-link' id="main-link" data-tab="main-tab">Enter Data</button>
+            <button class='nav-link' id="pie-link" data-tab="pie-tab">Pie Chart</button>
         </nav>
     </header>
     <main>
+        <!-- information/home tab -->
     <section id="info-tab" class="tab">
         <h1>How It Works</h1>
         <p>What the symbols mean, and their percieved value in semi-statistical analysis</p>
@@ -56,29 +58,39 @@
         </ul>
     </section>
 
+    <!-- entry info tab -->
     <section id="main-tab" class="tab">
         <form id="rawes-data">
             <h2>Provisioning Services</h2>
-            <table id="provisioning-table"></table>
+            <table id="provisioning-table" data-table="provisioning"></table>
     
             <h2>Regulating Services</h2>
-            <table id="regulating-table"></table>
+            <table id="regulating-table" data-table="regulating"></table>
     
             <h2>Cultural Services</h2>
-            <table id="cultural-table"></table>
+            <table id="cultural-table" data-table='cultural'></table>
     
             <h2>Supporting Services</h2>
-            <table id="supporting-table">
+            <table id="supporting-table" data-table='supporting'>
             </table>
             <div class="flex-row">
                 <button id="submit-button" type="submit">Submit</button>
             </div>
         </form>
     </section>
+
+    <!-- pie chart tab -->
+    <section id="pie-tab" class="tab">
+        <div id="pie-chart-div">
+        </div>
+    </section>
     </main>
     <footer>
         @ 2023 Daisy Everard
     </footer>
+    <!-- jquery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <!-- local script -->
     <script src="./assets/js/script.js"></script>
 </body>
 </html>
