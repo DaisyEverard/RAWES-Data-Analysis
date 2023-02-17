@@ -5,22 +5,33 @@ const infoLink = document.querySelector('#info-link')
 const mainLink = document.querySelector('#main-link')
 const allTabs = document.querySelectorAll('.tab'); 
 const navbar = document.querySelector('nav')
+const navLinks = document.querySelectorAll('.nav-link');
 
+// main tab on start
 allTabs.forEach((item) => {item.setAttribute('class', 'hide');})
 mainTab.removeAttribute('class', 'hide');
+document.querySelector('#main-link').classList.add('active-tab')
 
 // tab switching functionality
 const changeTabFunc = (tabToOpen) => {
   allTabs.forEach(item => {
     item.setAttribute('class', 'hide');
   })
-  tabToOpen.removeAttribute('class', 'hide')
+  tabToOpen.classList.remove('hide')
 }
 
 navbar.addEventListener('click', (event) => {
-  let tabName = event.target.getAttribute('data-tab');
+  let tab = event.target
+  let tabName = tab.getAttribute('data-tab');
   let tabToOpen = document.getElementById(tabName); 
   changeTabFunc(tabToOpen); 
+
+  console.log(navLinks)
+  navLinks.forEach(link => {
+    console.log(link)
+    link.classList.remove('active-tab'); 
+  })
+  tab.classList.add('active-tab')
 })
 
 // MAIN-TAB

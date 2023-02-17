@@ -17,20 +17,33 @@
 header {
     background-color: rgb(48, 48, 48);
     color: white; 
+    font-size: larger;
+    padding: 5px;
+    padding-bottom: 0;
+}
+header h1 {
+    margin-bottom: 5px; 
 }
 header nav {
    display: flex;
 }
-header button {
+/* NAVBAR */
+.nav-link {
+    background-color: #007009;
+    color: white;
+    font-size: 1.2rem;
     border-bottom: none;
+    border-radius: 5px 5px 0 0; 
+    margin: 0 1px; 
+    padding: 2px;
+}
+.nav-link:hover {
+    background-color: rgb(151, 151, 151);
+    color:black; 
+}
+.active-tab {
+    background-color: white;
     color: black; 
-    border-radius: 5px 5px 0 0;
-}
-header button:hover {
-    background-color: rgb(151, 151, 151);
-}
-header button:active {
-    background-color: rgb(151, 151, 151);
 }
 /* INFO-TAB */
 
