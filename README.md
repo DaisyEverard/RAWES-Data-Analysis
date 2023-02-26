@@ -6,7 +6,7 @@ tool to get some statistical analysis and visual data representations from RAWES
 ## Preview
 
 <p align="center">
-<img src="./assets/preview.png" width="500" alt="screenshot of site">
+<img src="./assets/images/preview.png" width="500" alt="screenshot of site">
 </p>
 
 ## Table of Contents
