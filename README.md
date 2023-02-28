@@ -48,6 +48,7 @@ To fill out the form:
 
 ## Future Development Options
 
+- When you remove all rows in a service, no way to add back again
 - Add ways to submit multiple forms with different dates, and track changes over time
 - Add statistical data representations such as pie and bar charts
 - Split data based on scale (e.g. local, regional, global)
