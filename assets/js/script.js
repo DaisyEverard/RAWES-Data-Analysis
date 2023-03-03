@@ -120,7 +120,6 @@ supportingArray.forEach((item) => {supBody.innerHTML += rowSetup(item, 'supporti
 mainTab.addEventListener('click', (event) => {
     let row = event.target.parentNode.parentNode.parentNode;
     let table = row.parentNode.parentNode.getAttribute('data-table'); 
-    console.log(table); 
     if (event.target.getAttribute('class') === 'new-row') {
       event.preventDefault(); 
       let newRowContent = document.createElement('tr');
@@ -170,29 +169,65 @@ let submitBtn = $('#submit-button');
 
 submitBtn.on('click', (event) => {
   event.preventDefault(); 
+  let formArray = []
   let checkedBoxes = $('input:checked', '#rawes-data');
   checkedBoxes = checkedBoxes.toArray();
-  console.log(checkedBoxes);
   checkedBoxes.forEach(box => {
-    console.log(box.getAttribute('data-name'))
-    console.log(box.getAttribute('data-table'))
-    console.log(box['value'])
+    let boxObj = {}
+    boxObj.name = box.getAttribute('data-name')
+    boxObj.serviceType = box.getAttribute('data-table')
+    boxObj.value = box['value']
+    formArray.push(boxObj)
   })
+  const date = $('#form-date').val();
+  $('#form-date').val("");
+  formArray.unshift(date);
+
+  // set new form to local storage
+  let local = localStorage.getItem("rawesForms") 
+  if (local) {
+    local = JSON.parse(local);
+    console.log(local) 
+    local.push(formArray)
+    localStorage.setItem("rawesForms", JSON.stringify(local)); 
+  } else {
+    local = [formArray];
+    localStorage.setItem("rawesForms", JSON.stringify(local))
+  }
 })
 
 // DATA PROCESSING
 // setting up piechart
+getPieChartNumServices = () => {
+  let local = localStorage.getItem("rawesForms");
+  if (local) {
+    local = JSON.parse(local);
+    let date = local[0][0]
+    let serviceCount = [0,0,0,0]
+    local[0].forEach(service => {
+      const name = service.name;
+      const serviceType = service.serviceType;
+      const value = parseFloat(service.value)
 
-var xValues = ["Italy", "France", "Spain", "USA", "Argentina"];
-var yValues = [55, 49, 44, 24, 15];
+      if (serviceType === "provisioning") {
+        serviceCount[0] += 1; 
+      } else if (serviceType === "regulating") {
+        serviceCount[1] += 1; 
+      } else if (serviceType === "cultural") {
+        serviceCount[2] += 1; 
+      }else if (serviceType === "supporting") {
+        serviceCount[3] += 1; 
+      }
+    })
+
+    var xValues = ["Provisioning", "Regulating", "Cultural", "Supporting"];
+var yValues = [serviceCount[0], serviceCount[1], serviceCount[2], serviceCount[3]];
 var barColors = [
-  "#b91d47",
-  "#00aba9",
-  "#2b5797",
-  "#e8c3b9",
-  "#1e7145"
+  "#007009",
+  "#3cc5f3",
+  "#797913",
+  "#690c0c"
 ];
-
 new Chart("pie-chart", {
   type: "pie",
   data: {
@@ -205,7 +240,9 @@ new Chart("pie-chart", {
   options: {
     title: {
       display: true,
-      text: "World Wide Wine Production 2018"
+      text: "Number of services of each type"
     }
   }
 });
+  }
+}

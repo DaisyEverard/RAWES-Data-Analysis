@@ -121,6 +121,11 @@ tr:nth-child(even) th textarea {
 }
 
 /* button styling */
+#form-date {
+    margin: 10px; 
+    height: 40px;
+    font-size: 1.2rem;
+}
 #submit-button {
     background-color: black;
     color: white;
