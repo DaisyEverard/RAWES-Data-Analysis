@@ -116,7 +116,7 @@ regulatingArray.forEach((item) => {regBody.innerHTML += rowSetup(item, 'regulati
 culturalArray.forEach((item) => {culBody.innerHTML += rowSetup(item, 'cultural')})
 supportingArray.forEach((item) => {supBody.innerHTML += rowSetup(item, 'supporting')})
 
-// button functionality
+// add/remove row button functionality
 mainTab.addEventListener('click', (event) => {
     let row = event.target.parentNode.parentNode.parentNode;
     let table = row.parentNode.parentNode.getAttribute('data-table'); 
@@ -146,7 +146,7 @@ mainTab.addEventListener('click', (event) => {
       </div>
     </td>`
 
-    // set textarea service to name attribute
+    // set textarea input to name attribute
     let newRow  = row.parentNode.insertBefore(newRowContent, row);
     newRow.addEventListener('keyup', () => {
         let text = newRow.querySelector('textarea')
@@ -164,7 +164,7 @@ mainTab.addEventListener('click', (event) => {
 }
 })
 
-// on submit (data processing)
+// on submit (store info)
 let submitBtn = $('#submit-button');
 
 submitBtn.on('click', (event) => {
@@ -194,11 +194,15 @@ submitBtn.on('click', (event) => {
     local = [formArray];
     localStorage.setItem("rawesForms", JSON.stringify(local))
   }
+
+  getPieChartNumServices()
+  getPieChartValServices()
 })
 
 // DATA PROCESSING
-// setting up piechart
-getPieChartNumServices = () => {
+// setting up piechart 1
+const getPieChartNumServices = () => {
+  $('#pie-chart-1').text("")
   let local = localStorage.getItem("rawesForms");
   if (local) {
     local = JSON.parse(local);
@@ -225,10 +229,10 @@ var yValues = [serviceCount[0], serviceCount[1], serviceCount[2], serviceCount[3
 var barColors = [
   "#007009",
   "#3cc5f3",
-  "#797913",
+  "#cdcd12",
   "#690c0c"
 ];
-new Chart("pie-chart", {
+new Chart("pie-chart-1", {
   type: "pie",
   data: {
     labels: xValues,
@@ -246,3 +250,55 @@ new Chart("pie-chart", {
 });
   }
 }
+
+const getPieChartValServices = () => {
+  $('#pie-chart-2').text("")
+  let local = localStorage.getItem("rawesForms");
+  if (local) {
+    local = JSON.parse(local);
+    let date = local[0][0]
+    let serviceCount = [0,0,0,0]
+    local[0].forEach(service => {
+      const name = service.name;
+      const serviceType = service.serviceType;
+      const value = parseFloat(service.value)
+
+      if (serviceType === "provisioning") {
+        serviceCount[0] += value; 
+      } else if (serviceType === "regulating") {
+        serviceCount[1] += value; 
+      } else if (serviceType === "cultural") {
+        serviceCount[2] += value; 
+      }else if (serviceType === "supporting") {
+        serviceCount[3] += value; 
+      }
+    })
+
+    var xValues = ["Provisioning", "Regulating", "Cultural", "Supporting"];
+var yValues = [serviceCount[0], serviceCount[1], serviceCount[2], serviceCount[3]];
+var barColors = [
+  "#007009",
+  "#3cc5f3",
+  "#cdcd12",
+  "#690c0c"
+];
+new Chart("pie-chart-2", {
+  type: "bar",
+  data: {
+    labels: xValues,
+    datasets: [{
+      backgroundColor: barColors,
+      data: yValues
+    }]
+  },
+  options: {
+    legend: {display: false},
+    title: {
+      display: true,
+      text: "Value of services of each type"
+    }
+  }
+});
+  }
+}
+
